@@ -17,6 +17,7 @@ export default function App() {
 
   useEffect(() => {
     const response = api.get("repositories").then((resp) => {
+      console.log(resp.data);
       setRepositories(resp.data);
     });
   }, []);
@@ -28,7 +29,7 @@ export default function App() {
       if (repository.id === id) {
         return response.data;
       } else {
-        return respository;
+        return repository;
       }
     });
 
@@ -46,11 +47,11 @@ export default function App() {
             <View style={styles.repositoryContainer}>
               <Text style={styles.repository}>{repo.title}</Text>
 
-              {repo.techs.map((tech) => {
-                <View key={tech} style={styles.techsContainer}>
-                  <Text style={styles.tech}>{tech}</Text>
-                </View>;
-              })}
+              <View style={styles.techsContainer}>
+                {repo.techs && repo.techs.map((tech) => (
+                  <Text key={tech} style={styles.tech}>{tech}</Text>
+                ))}
+              </View>
 
               <View style={styles.likesContainer}>
                 <Text
